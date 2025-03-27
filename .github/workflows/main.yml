@@ -12,13 +12,13 @@ jobs:
 
       - name: Login to AWS ECR
         run: |
-          echo "${{ secrets.AWS_ACCESS_KEY_ID }}" | docker login --username AWS --password-stdin <AWS_ECR_URL>
+          echo "${{ secrets.AWS_ACCESS_KEY_ID }}" | docker login --username AWS --password-stdin <253284761052.dkr.ecr.ap-southeast-2.amazonaws.com/my-cicd-flask-app>
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t <AWS_ECR_URL>/my-app:${{ github.sha }} .
-          docker push <AWS_ECR_URL>/my-app:${{ github.sha }}
+          docker build -t <253284761052.dkr.ecr.ap-southeast-2.amazonaws.com/my-cicd-flask-app>/my-app:${{ github.sha }} .
+          docker push <253284761052.dkr.ecr.ap-southeast-2.amazonaws.com/my-cicd-flask-app>/my-app:${{ github.sha }}
 
       - name: Update Kubernetes Deployment
         run: |
-          kubectl set image deployment/my-app my-app=<AWS_ECR_URL>/my-app:${{ github.sha }}
+          kubectl set image deployment/my-app my-app=<253284761052.dkr.ecr.ap-southeast-2.amazonaws.com/my-cicd-flask-app>/my-app:${{ github.sha }}
